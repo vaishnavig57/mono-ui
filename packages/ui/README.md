@@ -63,37 +63,6 @@ npm install your-package-name
 npm install git+https://github.com/vaishnavig57/mono-ui.git
 ```
 
-### 3. Import and Use Components
-
-**Import the Search component:**
-```tsx
-import { Search } from 'ui/components'; // Replace 'ui' with your package name if different
-```
-
-**Example Usage:**
-```tsx
-import React, { useState } from 'react';
-import { Search } from 'ui/components';
-
-function App() {
-  const [searchValue, setSearchValue] = useState('');
-
-  return (
-    <div>
-      <h2>Search Example</h2>
-      <Search
-        value={searchValue}
-        onChange={setSearchValue}
-        placeholder="Type to search..."
-      />
-      <p>Current value: {searchValue}</p>
-    </div>
-  );
-}
-
-export default App;
-```
-
 ---
 
 ## 📦 How to Publish to npm (Quick Steps)
@@ -130,10 +99,31 @@ npm install your-package-name
 
 ---
 
-**Troubleshooting:**
-- If you get a 403 error, the package name is already taken or you are not the owner.
-- If you get an auth error, run `npm login` and try again.
-- Always use a unique package name for your own packages.
+## 🚀 How to Use This Package in a New Project
+
+**1. Install the package:**
+```
+npm install your-package-name
+```
+_Replace `your-package-name` with the name in your `package.json` (e.g., `vaishnavi-ui`)._
+
+**2. Import components in your code:**
+```jsx
+import { Search, Dropdown } from 'your-package-name';
+
+function App() {
+  return (
+    <div>
+      <Search placeholder="Search..." />
+      <Dropdown options={['Option 1', 'Option 2']} />
+    </div>
+  );
+}
+```
+
+**3. Build and run your project as usual.**
+
+---
 
 ## Notes
 - Use `npm link` only for local development. For deployment/production, always use `npm install` from npm or GitHub.
