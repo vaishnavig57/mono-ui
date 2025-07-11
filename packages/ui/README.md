@@ -125,6 +125,57 @@ function App() {
 
 ---
 
+## 📦 How to Install This Package from GitHub (No npm Publish Required)
+
+**If your package.json is at the root of the repo:**
+```sh
+npm install git+https://github.com/vaishnavi57/mono-ui.git
+```
+Or in your `package.json`:
+```json
+"dependencies": {
+  "mono-ui": "git+https://github.com/vaishnavi57/mono-ui.git"
+}
+```
+
+**If your package is in a subdirectory (e.g., packages/ui):**
+```sh
+npm install https://gitpkg.now.sh/vaishnavi57/mono-ui/packages/ui
+```
+Or in your `package.json`:
+```json
+"dependencies": {
+  "mono-ui": "https://gitpkg.now.sh/vaishnavi57/mono-ui/packages/ui"
+}
+```
+
+**For private repos:**
+- Add your GitHub token to `.npmrc`:
+  ```
+  //github.com/:_authToken=YOUR_GITHUB_TOKEN
+  ```
+- Or use the token in the URL (not recommended):
+  ```sh
+  npm install git+https://<TOKEN>@github.com/vaishnavi57/mono-ui.git
+  ```
+
+**Required changes:**
+- Make sure your build output (e.g., `dist/`) is committed to GitHub, or add a `prepare` script in your `package.json`:
+  ```json
+  "scripts": {
+    "prepare": "npm run build"
+  }
+  ```
+- Ensure all peer dependencies (like `react`, `react-icons`, etc.) are installed in the consuming project.
+
+**After install, import components as:**
+```js
+import { Search, Dropdown, LoginForm } from 'mono-ui';
+```
+_Replace 'mono-ui' with the name in your package.json if different._
+
+---
+
 ## Notes
 - Use `npm link` only for local development. For deployment/production, always use `npm install` from npm or GitHub.
 - Rebuild (`npm run build`) your UI package after making changes to see updates in your linked project.
