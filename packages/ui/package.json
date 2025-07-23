@@ -1,6 +1,6 @@
 {
-  "name": "mono-ui-mundrisoft",
-  "version": "1.0.0",
+  "name": "@vaishnavi57/mono-ui-test",
+  "version": "1.0.1",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "files": [
@@ -16,5 +16,12 @@
     "prepare": "npm run build"
   },
   "license": "MIT",
-  "description": "Reusable UI components for React"
+  "description": "Reusable UI components for React",
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vaishnavi57/mono-ui-test.git"
+  }
 }
