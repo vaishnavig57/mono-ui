@@ -181,3 +181,52 @@ _Replace 'mono-ui' with the name in your package.json if different._
 - Rebuild (`npm run build`) your UI package after making changes to see updates in your linked project.
 - Restart your local project's dev server after linking or installing.
 - If you encounter issues, check your package name and import paths. 
+
+---
+
+## 🚀 How to Publish to GitHub Packages and Use in Another Project
+
+### 1. Publish Your Package to GitHub Packages
+
+1. Make sure your `package.json` has:
+   ```json
+   "name": "@vaishnavi57/mono-ui"
+   "publishConfig": { "registry": "https://npm.pkg.github.com" }
+   ```
+2. In your `packages/ui/.npmrc` file, add:
+   ```
+   @vaishnavi57:registry=https://npm.pkg.github.com
+   //npm.pkg.github.com/:_authToken=YOUR_PERSONAL_ACCESS_TOKEN
+   ```
+   *(Replace `YOUR_PERSONAL_ACCESS_TOKEN` with your real GitHub token)*
+   
+   **Important:** Add `.npmrc` to your `.gitignore` file so you don't accidentally commit your personal access token to your repository.
+3. Run these commands in `packages/ui`:
+   ```sh
+   npm run build
+   npm publish
+   ```
+
+---
+
+### 2. Use the Package in Another Project
+
+> **Note:** You do NOT need to use `git+` in the package name or install command for GitHub Packages. Just use the npm package name as shown below.
+
+1. In your other project's `.npmrc` file, add:
+   ```
+   @vaishnavi57:registry=https://npm.pkg.github.com
+   //npm.pkg.github.com/:_authToken=YOUR_PERSONAL_ACCESS_TOKEN
+   ```
+   
+   **Important:** Add `.npmrc` to your `.gitignore` file in your other project as well.
+2. Install the package:
+   ```sh
+   npm install @vaishnavi57/mono-ui
+   ```
+3. Import and use components:
+   ```js
+   import { Search, Dropdown, ContactForm } from '@vaishnavi57/mono-ui';
+   ```
+
+--- 
