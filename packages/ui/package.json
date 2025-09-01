@@ -1,8 +1,16 @@
 {
-  "name": "@vaishnavig57/mono-ui",
-  "version": "1.0.1",
+  "name": "@vaishnavi57/mono-ui",
+  "version": "1.0.3",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "sideEffects": false,
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "require": "./dist/index.js",
+      "default": "./dist/index.js"
+    }
+  },
   "files": [
     "dist"
   ],
@@ -18,10 +26,15 @@
   "license": "MIT",
   "description": "Reusable UI components for React",
   "publishConfig": {
-    "registry": "https://npm.pkg.github.com/"
+    "registry": "https://npm.pkg.github.com"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/vaishnavi57/mono-ui-test.git"
+    "url": "https://github.com/vaishnavi57/mono-ui.git"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.0",
+    "@types/react-dom": "^18.2.0",
+    "typescript": "^5.4.0"
   }
 }

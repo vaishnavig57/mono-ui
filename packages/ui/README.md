@@ -44,23 +44,21 @@ npm link ui
 
 ### 1. Check Your Package Name
 - Open `package.json` in this package.
-- Find the `"name"` field. Example:
+- Ensure the `"name"` field is scoped for GitHub Packages, for example:
   ```json
-  "name": "ui"
+  "name": "@vaishnavi57/mono-ui"
   ```
-- If you want to publish to npm, use a unique name (e.g., `mono-ui` or `vaishnavi-ui`).
 
-### 2. Install the Package in Your Project
+### 2. Install via GitHub Packages (works for private repos)
 
-#### A. If published to npm:
+1) In your consuming project's root, create or update `.npmrc`:
 ```
-npm install your-package-name
+@vaishnavi57:registry=https://npm.pkg.github.com
+//npm.pkg.github.com/:_authToken=YOUR_GITHUB_PAT
 ```
-*(Replace `your-package-name` with the value from your `package.json`)*
-
-#### B. If installing directly from GitHub:
+2) Install the package (and peer deps if needed):
 ```
-npm install git+https://github.com/vaishnavig57/mono-ui.git
+npm install @vaishnavi57/mono-ui
 ```
 
 ---
@@ -101,21 +99,26 @@ npm install your-package-name
 
 ## 🚀 How to Use This Package in a New Project
 
-**1. Install the package:**
+**1. Authenticate and install (GitHub Packages):**
 ```
-npm install your-package-name
+@vaishnavi57:registry=https://npm.pkg.github.com
+//npm.pkg.github.com/:_authToken=YOUR_GITHUB_PAT
 ```
-_Replace `your-package-name` with the name in your `package.json` (e.g., `vaishnavi-ui`)._
+Then:
+```
+npm install @vaishnavi57/mono-ui
+```
 
 **2. Import components in your code:**
 ```jsx
-import { Search, Dropdown } from 'your-package-name';
+import { Search, Dropdown, ContactForm } from '@vaishnavi57/mono-ui';
 
 function App() {
   return (
     <div>
-      <Search placeholder="Search..." />
-      <Dropdown options={['Option 1', 'Option 2']} />
+      <Search value="" onChange={() => {}} placeholder="Search..." />
+      <Dropdown options={[{ label: 'Option 1', value: '1' }]} value="" onChange={() => {}} />
+      <ContactForm onSubmit={(data) => console.log(data)} />
     </div>
   );
 }
@@ -125,62 +128,35 @@ function App() {
 
 ---
 
-## 📦 How to Install This Package from GitHub (No npm Publish Required)
+## 📦 Install from GitHub Packages (Preferred)
 
-**If your package.json is at the root of the repo:**
+1) Add `.npmrc` in both publisher and consumer projects:
+```
+@vaishnavi57:registry=https://npm.pkg.github.com
+//npm.pkg.github.com/:_authToken=YOUR_GITHUB_PAT
+```
+2) Publish from this package (run in `packages/ui`):
 ```sh
-npm install git+https://github.com/vaishnavi57/mono-ui.git
+npm run build
+npm version patch
+npm publish
 ```
-Or in your `package.json`:
-```json
-"dependencies": {
-  "mono-ui": "git+https://github.com/vaishnavi57/mono-ui.git"
-}
-```
-
-**If your package is in a subdirectory (e.g., packages/ui):**
+3) Install in any project:
 ```sh
-npm install https://gitpkg.now.sh/vaishnavi57/mono-ui/packages/ui
+npm install @vaishnavi57/mono-ui
 ```
-Or in your `package.json`:
-```json
-"dependencies": {
-  "mono-ui": "https://gitpkg.now.sh/vaishnavi57/mono-ui/packages/ui"
-}
-```
-
-**For private repos:**
-- Add your GitHub token to `.npmrc`:
-  ```
-  //github.com/:_authToken=YOUR_GITHUB_TOKEN
-  ```
-- Or use the token in the URL (not recommended):
-  ```sh
-  npm install git+https://<TOKEN>@github.com/vaishnavi57/mono-ui.git
-  ```
-
-**Required changes:**
-- Make sure your build output (e.g., `dist/`) is committed to GitHub, or add a `prepare` script in your `package.json`:
-  ```json
-  "scripts": {
-    "prepare": "npm run build"
-  }
-  ```
-- Ensure all peer dependencies (like `react`, `react-icons`, etc.) are installed in the consuming project.
-
-**After install, import components as:**
+4) Import:
 ```js
-import { Search, Dropdown, LoginForm } from 'mono-ui';
+import { Search, Dropdown, ContactForm } from '@vaishnavi57/mono-ui';
 ```
-_Replace 'mono-ui' with the name in your package.json if different._
 
 ---
 
 ## Notes
-- Use `npm link` only for local development. For deployment/production, always use `npm install` from npm or GitHub.
-- Rebuild (`npm run build`) your UI package after making changes to see updates in your linked project.
-- Restart your local project's dev server after linking or installing.
-- If you encounter issues, check your package name and import paths. 
+- Prefer GitHub Packages for private repos. Avoid `git+https://` installs for monorepos/private repos.
+- Ensure peer deps are installed in the consumer app: `react`, `react-dom`, `react-icons`.
+- For local dev, you can use `npm link` or `npm pack` to install the generated tarball.
+- If installs fail with 401/404 in CI, your token is missing `read:packages` or repo access.
 
 ---
 
@@ -204,6 +180,7 @@ _Replace 'mono-ui' with the name in your package.json if different._
 3. Run these commands in `packages/ui`:
    ```sh
    npm run build
+   npm version patch
    npm publish
    ```
 
