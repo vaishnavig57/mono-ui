@@ -16,9 +16,9 @@ const Search: React.FC<SearchProps> = ({ value, onChange, placeholder = 'Search.
         'relative flex items-center w-full max-w-md mx-auto ' + (className || '')
       }
     >
-      <span className="absolute left-3 text-gray-400">
+      {/* <span className="absolute left-3 text-gray-400">
         <FaSearch />
-      </span>
+      </span> */}
       <input
         type="text"
         value={value}
